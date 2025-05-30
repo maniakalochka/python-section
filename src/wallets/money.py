@@ -48,3 +48,18 @@ class Wallet:
 
     def __len__(self) -> int:
         return 1 if self.money.value > 0 else 0
+
+    def __contains__(self, currency: Currency) -> bool:
+        return self.money.currency == currency and self.money.value > 0
+
+    def add(self, money: Money) -> "Wallet":
+        if money.currency != self.money.currency:
+            raise NotComparisonException("Cannot add money with different currencies")
+        self.money = self.money + money
+        return self
+
+    def sub(self, money: Money) -> "Wallet":
+        if money.currency != self.money.currency:
+            raise NotComparisonException("Cannot subtract money with different currencies")
+        self.money = self.money - money
+        return self
