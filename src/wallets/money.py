@@ -23,7 +23,9 @@ class Money:
 
     def check_same_currency(self, other: "Money") -> None:
         if self.currency != other.currency:
-            raise NotComparisonException("Cannot compare money with different currencies")
+            raise NotComparisonException(
+                "Cannot compare money with different currencies"
+            )
 
     def __post_init__(self) -> None:
         if self.value < 0:
@@ -41,12 +43,12 @@ class Wallet:
 
     def ensure_currency_match(self, key: Currency, value: Money):
         if key != value.currency:
-            raise ValueError(f"Key currency {key} does not match money currency {value.currency}")
+            raise ValueError(
+                f"Key currency {key} does not match money currency {value.currency}"
+            )
 
     def __getitem__(self, currency: Currency) -> Any:
-        return self.__storage.setdefault(
-            currency,
-            Money(value=0, currency=currency))
+        return self.__storage.setdefault(currency, Money(value=0, currency=currency))
 
     def __setitem__(self, currency: Currency, money: Money) -> None:
         self.ensure_currency_match(currency, money)
@@ -69,6 +71,8 @@ class Wallet:
     def sub(self, money: Money) -> Self:
         res = self[money.currency] - money
         if res.value < 0:
-            raise NegativeValueException("Cannot subtract more money than available in the wallet")
+            raise NegativeValueException(
+                "Cannot subtract more money than available in the wallet"
+            )
         self[money.currency] = res
         return self
