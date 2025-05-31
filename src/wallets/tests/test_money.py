@@ -1,4 +1,4 @@
-import math
+import decimal
 
 import pytest
 
@@ -77,4 +77,4 @@ class TestWallet:
 
     def test_sub__negative(self, wallet):
         with pytest.raises(NegativeValueException):
-            wallet.sub(Money(value=math.inf, currency=Currency.rub))
+            wallet.sub(Money(value=decimal.Decimal('Infinity'), currency=Currency.rub))
