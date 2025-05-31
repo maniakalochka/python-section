@@ -1,4 +1,3 @@
-import decimal
 from dataclasses import dataclass
 from typing import Any, Self
 
@@ -8,7 +7,7 @@ from .exceptions import NegativeValueException, NotComparisonException
 
 @dataclass(frozen=True, slots=True)
 class Money:
-    value: decimal.Decimal
+    value: float  # можно было использовать decimal.Decimal для большей точности
     currency: Currency
 
     def __add__(self, other: "Money") -> "Money":
@@ -47,7 +46,7 @@ class Wallet:
     def __getitem__(self, currency: Currency) -> Any:
         return self.__storage.setdefault(
             currency,
-            Money(value=decimal.Decimal(0), currency=currency))
+            Money(value=0, currency=currency))
 
     def __setitem__(self, currency: Currency, money: Money) -> None:
         self.ensure_currency_match(currency, money)
