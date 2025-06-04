@@ -1,1 +1,1 @@
-# python-section
+# python-section, которая выполнена Волоховым Прохором
