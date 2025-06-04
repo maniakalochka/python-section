@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Self
+from typing import Any, NoReturn, Self
 
 from .currency import Currency
 from .exceptions import NegativeValueException, NotComparisonException
@@ -21,13 +21,13 @@ class Money:
             raise NegativeValueException("Resulting money value cannot be negative")
         return Money(value=result_value, currency=self.currency)
 
-    def check_same_currency(self, other: "Money") -> None:
+    def check_same_currency(self, other: "Money") -> NoReturn:  # type: ignore
         if self.currency != other.currency:
             raise NotComparisonException(
                 "Cannot compare money with different currencies"
             )
 
-    def __post_init__(self) -> None:
+    def __post_init__(self) -> NoReturn:  # type: ignore
         if self.value < 0:
             raise NegativeValueException("Money value cannot be negative")
 
@@ -41,7 +41,7 @@ class Wallet:
     def currencies(self):
         return self.__storage.keys()
 
-    def ensure_currency_match(self, key: Currency, value: Money):
+    def ensure_currency_match(self, key: Currency, value: Money) -> NoReturn:  # type: ignore
         if key != value.currency:
             raise ValueError(
                 f"Key currency {key} does not match money currency {value.currency}"

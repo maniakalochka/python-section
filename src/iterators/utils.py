@@ -30,7 +30,7 @@ def request(query: Query) -> Page:
 
 class RetrieveRemoteData:
     def __init__(self, per_page: int = 3, page: int = 1) -> None:
-        self.query = Query()
+        self.query = Query(per_page=per_page, page=page)
         self.page = request(self.query)
         self.count = 0
 
@@ -38,7 +38,7 @@ class RetrieveRemoteData:
         return self
 
     def __next__(self) -> Any:
-        if self.count >= len(self.page.results):
+        if self.count >= len(self.page.results): # type: ignore
             if self.page.next is None:
                 raise StopIteration
 
@@ -46,7 +46,7 @@ class RetrieveRemoteData:
             self.page = request(self.query)
             self.count = 0
 
-        val = self.page.results[self.count]
+        val = self.page.results[self.count]  # type: ignore
         self.count += 1
         return val
 
@@ -61,7 +61,7 @@ class Fibo:
     def __iter__(self) -> Self:
         return self
 
-    def __next__(self):
+    def __next__(self) -> int:
         if self.count >= self.n:
             raise StopIteration
 
