@@ -8,7 +8,7 @@ from .exceptions import NegativeValueException, NotComparisonException
 @dataclass(frozen=True, slots=True)
 class Money:
     value: float  # можно было использовать decimal.Decimal для большей точности
-    # (в отличие от float от реалзизуется программно, а не на уровне процесора, вот такой вот факт)
+    # (в отличие от float от реалзизуется программно, а не на уровне процесcора, вот такой вот факт я недавно узнал)
     currency: Currency
 
     def __add__(self, other: "Money") -> "Money":
