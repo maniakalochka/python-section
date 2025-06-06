@@ -11,7 +11,7 @@ class Librarian:
 
 class LibraryWorker(Librarian):
     def work(self):
-        pass
+        print("Уборщица работает в библиотеке.")
 
     def arrange_book(self):
         print("А уборщице разве нужно расставлять книги?")
